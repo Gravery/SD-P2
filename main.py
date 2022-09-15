@@ -7,11 +7,11 @@ from CD import CD
 lojas = [Loja(i) for i in range(20)]
 
 run = 1
-cd = CD()
+'''cd = CD()
 
 threading1 = threading.Thread(target=cd.listen)
 threading1.daemon = True
-threading1.start()
+threading1.start()'''
 
 while run:
     for loja in lojas:
