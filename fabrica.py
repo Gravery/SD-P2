@@ -20,3 +20,7 @@ class Fabrica:
     def on_message(self, client, userdata, msg):
         print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
         print("Sinal de refill recebido")
+
+    def listen(self):
+            self.client.on_message = self.on_message
+            self.client.loop_forever()
