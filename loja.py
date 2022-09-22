@@ -70,7 +70,7 @@ class Loja:
         self.pid[produto] -= quant
 
         sinal = self.control_products(produto)
-        print(f'Sinal produto {produto}: {sinal}')
+        print(f'Sinal produto {produto} na Loja {self.id_loja}: {sinal}')
         if (sinal == 'red'):
             print(f'Loja {self.id_loja} requisitando reabastecimento de produto {produto}')
             self.refill(produto)

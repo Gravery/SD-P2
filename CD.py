@@ -15,11 +15,11 @@ class CD:
     def fill_products(self):
         for i in range(210):
             if (i % 3 == 0):
-                self.pid[i] = 100
+                self.pid[i] = 100 * 5
             elif (i % 3 == 1):
-                self.pid[i] = 60
+                self.pid[i] = 60 * 5
             else:
-                self.pid[i] = 20
+                self.pid[i] = 20 * 5
 
     #Conecta no broker e inscreve nos canais das 20 lojas
     def sub_and_connect(self):
@@ -42,21 +42,21 @@ class CD:
         tipo = pid % 3
 
         if (tipo == 0):
-            if (self.pid[pid] >= 50):
+            if (self.pid[pid] >= 50 * 5):
                 return 'green'
-            if (self.pid[pid] >= 25):
+            if (self.pid[pid] >= 25 * 5):
                 return 'yellow'
             return 'red'
         elif (tipo == 1):
-            if (self.pid[pid] >= 30):
+            if (self.pid[pid] >= 30 * 5):
                 return 'green'
-            if (self.pid[pid] >= 15):
+            if (self.pid[pid] >= 15 * 5):
                 return 'yellow'
             return 'red'
         else:
-            if (self.pid[pid] >= 10):
+            if (self.pid[pid] >= 10 * 5):
                 return 'green'
-            if (self.pid[pid] >= 5):
+            if (self.pid[pid] >= 5 * 5):
                 return 'yellow'
             return 'red'
 
@@ -64,12 +64,13 @@ class CD:
     def refill(self, pid):
         id_fab = int(pid / 3)
         if (pid % 3 == 0):
-            quant = 100
+            quant = (100 * 5)
         elif (pid % 3 == 1):
-            quant = 60
+            quant = (60 * 5)
         else:
-            quant = 20
+            quant = (20 * 5)
 
+        print(f'Requisitando reposição de Produto {pid}')
         self.client.publish(f'fabrica/[{id_fab}]', pid)
         self.pid[pid] += quant
 
@@ -86,6 +87,7 @@ class CD:
 
             self.restock_store(pid)
             sinal = self.control_products(pid)
+            print(f'Sinal do produto {pid} no CD: {sinal}')
             if (sinal == 'red'):
                 self.refill(pid)
 
