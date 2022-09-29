@@ -21,7 +21,7 @@ class Loja:
             else:
                 self.pid[i] = 20
 
-    #Conecta no broker e inscreve nos canais das 20 lojas
+    #Conecta no broker mqtt
     def connect(self):
         self.client.connect('broker.mqttdashboard.com', 1883)
 
@@ -48,7 +48,7 @@ class Loja:
                 return 'yellow'
             return 'red'
 
-    #Faz a requisição de um produto para a fabrica
+    #Faz a requisição de um produto para o CD
     def refill(self, pid):
         if (pid % 3 == 0):
             quant = 100
@@ -61,10 +61,16 @@ class Loja:
         self.pid[pid] += quant
 
 
-    #Loop
+    #Loop de consumo das lojas e detecção de níveis dos produtos para requisitar o CD
     def loop(self):
         produto = random.randint(0, 209)
-        quant = random. randint(1, 19)
+        if (produto % 3 == 0):
+            quant = random. randint(20, 90)
+        elif (produto % 3 == 1):
+            quant = random. randint(10, 50)
+        else:
+            quant = random. randint(1, 15)
+
 
         print(f'{quant} unidades adquirida do produto {produto} na loja {self.id_loja}')
         self.pid[produto] -= quant

@@ -4,10 +4,12 @@ from time import sleep
 from loja import Loja
 from CD import CD
 
+print('Criando as 20 lojas')
 lojas = [Loja(i) for i in range(20)]
 
 run = 1
 
+print('Iniciando trabalho das lojas...')
 #Loop de débito das lojas que fará todo o sistema rodar
 while run:
 
